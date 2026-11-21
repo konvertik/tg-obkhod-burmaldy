@@ -45,7 +45,12 @@ import ru.mtproxymanager.data.ThemeMode
 import ru.mtproxymanager.data.net.SourceResult
 
 @Composable
-fun SettingsScreen(state: AppUiState, viewModel: AppViewModel, modifier: Modifier = Modifier) {
+fun SettingsScreen(
+    state: AppUiState,
+    viewModel: AppViewModel,
+    onEasterEgg: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     var newSource by rememberSaveable { mutableStateOf("") }
     var sourceError by remember { mutableStateOf<String?>(null) }
 
@@ -193,6 +198,23 @@ fun SettingsScreen(state: AppUiState, viewModel: AppViewModel, modifier: Modifie
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+            }
+        }
+
+        item(key = "h_easter") { SectionTitle("Секретный режим") }
+        item(key = "easter_egg") {
+            Card(Modifier.fillMaxWidth()) {
+                Column(Modifier.padding(12.dp)) {
+                    Text("Тунг тунг сахуры и бренроты", style = MaterialTheme.typography.bodyLarge)
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        "Нажми кнопку, если не боишься брейнрота",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Spacer(Modifier.height(10.dp))
+                    Button(onClick = onEasterEgg) { Text("Выпустить") }
+                }
             }
         }
 
